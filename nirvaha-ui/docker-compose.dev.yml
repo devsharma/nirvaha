@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  nirvaha-ui-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: nirvaha-ui-dev
+    ports:
+      - "5173:5173"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+    restart: unless-stopped
+    networks:
+      - nirvaha-dev-network
+
+networks:
+  nirvaha-dev-network:
+    driver: bridge
